@@ -6,8 +6,8 @@ require_once __DIR__ . '/../includes/app.php';
 use MVC\Router;
 use Controllers\AlumnoController;
 $router = new Router();
-$router->get('/', [AlumnoController::class, 'index']);
-$router->post('/', [AlumnoController::class, 'index']);
+$router->get('/alumno', [AlumnoController::class, 'index']);
+$router->post('/alumno', [AlumnoController::class, 'index']);
 
 
 
