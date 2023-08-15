@@ -56,7 +56,11 @@ $hover-color: #f1f1f1;
     cursor: pointer;
 
     &:hover {
+        color: white;
         background-color: darken($primary-color, 10%);
     }
 }
 
+.menuD{
+    background-color: $secondary-color;
+}
