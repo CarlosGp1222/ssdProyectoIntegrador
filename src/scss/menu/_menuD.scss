@@ -1,0 +1,62 @@
+// Variables
+$font-family: Arial, sans-serif;
+$primary-color: #34495e;
+$secondary-color: #F1F1F1;
+$hover-color: #f1f1f1;
+
+.menu {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: $primary-color;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.2);
+    overflow-x: hidden;
+    transition: 0.3s;
+    padding-top: 60px;
+    background-color: $secondary-color;
+
+    a {
+        padding: 10px 15px;
+        text-decoration: none;
+        font-size: 20px;
+        color: $primary-color;
+        display: block;
+        transition: 0.3s;
+
+        &:hover {
+            color: $hover-color;
+            background-color: $primary-color;
+        }
+    }
+
+    .close-btn {
+        position: absolute;
+        top: 20px;
+        right: 25px;
+        font-size: 36px;
+        margin-left: 50px;
+        color: $primary-color;
+        cursor: pointer;
+
+        &:hover {
+            color: $hover-color;
+        }
+    }
+}
+
+#openMenu {
+    font-size: 20px;
+    padding: 10px 20px;
+    background-color: $secondary-color;
+    color: $primary-color;
+    border: none;
+    cursor: pointer;
+
+    &:hover {
+        background-color: darken($primary-color, 10%);
+    }
+}
+
