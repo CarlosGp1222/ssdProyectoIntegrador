@@ -5,11 +5,11 @@ use MVC\Router;
 
 class AlumnoController
 {
-    public static function index(Router $router)
+    public static function formAlumno(Router $router)
     {
         $alumno = "pepito";
 
-        $router->render('alumno/index', [
+        $router->render('Alumno/alumno', [
             'alumno' => $alumno,
         ]);
     }
