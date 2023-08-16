@@ -2,9 +2,9 @@
     <!-- Formulario para agregar representante -->
     <div class="section">
         <h2>Agregar Nuevo Representante</h2>
-        <form action="procesar_representante.php" method="POST">
-            <input type="text" name="nombre" placeholder="Nombres">
-            <input type="text" name="apellido" placeholder="Apellidos">
+        <form action="/representante" method="POST">
+            <input type="text" name="nombres" placeholder="Nombres">
+            <input type="text" name="apellidos" placeholder="Apellidos">
             <select name="genero">
                 <option value="masculino">Masculino</option>
                 <option value="femenino">Femenino</option>
