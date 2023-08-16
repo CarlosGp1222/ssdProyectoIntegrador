@@ -2,16 +2,16 @@
     <!-- Formulario para agregar estudiantes -->
     <div class="left-section">
         <h2>Agregar Nuevo Estudiante</h2>
-        <form action="procesar.php" method="POST">
-            <input type="text" name="nombre" placeholder="Nombres">
-            <input type="text" name="apellido" placeholder="Apellidos">
+        <form action="/alumno" method="POST">
+            <input type="text" name="nombres" placeholder="Nombres">
+            <input type="text" name="apellidos" placeholder="Apellidos">
             <select name="genero">
                 <option value="masculino">Masculino</option>
                 <option value="femenino">Femenino</option>
                 <option value="otro">otros 39 tipos de gay</option>
             </select>
             <input type="text" name="cedula" placeholder="Cédula">
-            <input type="text" name="ceduleRepre" placeholder="Cédula Representante">
+            <input type="text" name="cedulaRepre" placeholder="Cédula Representante">
             <input type="text" name="direccion" placeholder="Dirección">
             <input type="text" name="telefono" placeholder="Teléfono">
             <input type="email" name="email" placeholder="Email">
