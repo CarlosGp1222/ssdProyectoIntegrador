@@ -29,9 +29,10 @@ controller.list_all = (req, res) => {
 
 //insert
 controller.save = (req, res) => {
+    const { nombres, apellidos, cedula, direccion, telefono, email } = req.body;
     const query = `INSERT INTO representantes(nombres, apellidos, cedula, direccion, telefono, email, genero)
     VALUES (?, ?, ?, ?, ?, ?, ?)`;
-    mysqlConnection.query(query, (err) => {
+    mysqlConnection.query(query, [nombres, apellidos, cedula, direccion, telefono, email],(err) => {
         
         if (!err) {
             res.json({
