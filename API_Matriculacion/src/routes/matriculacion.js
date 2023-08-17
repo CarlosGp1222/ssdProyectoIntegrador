@@ -3,6 +3,7 @@ const router = express.Router();
 
 const representantesController = require('../controllers/representantesController');
 const alumnoController = require('../controllers/alumnosController');
+const loginController = require('../controllers/loginController');
 
 //alumnos
 router.get('/alumno', alumnoController.list_all);
@@ -14,6 +15,9 @@ router.put('/:id_representante', alumnoController.update);
 router.get('/representante', representantesController.list_all);
 router.post('/representante', representantesController.save);
 router.put('/representante/:cedula', representantesController.update);
+
+//Login
+router.post('/login', loginController.list);
 
 //matricula
 //cursos
