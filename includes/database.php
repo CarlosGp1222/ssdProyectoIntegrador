@@ -1,6 +1,6 @@
 <?php
 
-$db = mysqli_connect('localhost', 'root', '', 'dbsolicitudes');
+$db = mysqli_connect('localhost', 'root', '', 'db_matricula');
 
 
 if (!$db) {
