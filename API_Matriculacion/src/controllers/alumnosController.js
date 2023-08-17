@@ -62,8 +62,11 @@ controller.list_cedula = (req, res) => {
 
 //Insert
 controller.save = (req, res) => {
-  const query = `INSERT INTO alumnos(nombres, apellidos, cedula, direccion, telefono, email, genero, f_nacimiento)
-    VALUES (?, ?, ?, ?, ?, ?, ?, ?)`;
+  const query = `INSERT INTO alumnos(id_alumno, r.id_representante, d.id_descuento,
+    nombres, apellidos, cedula, direccion, telefono, email, genero, f_nacimiento
+    INNER JOIN representantes AS r ON a.id_representante = r.id_representante
+    INNER JOIN descuento AS d ON a.id_descuento = d.id_descuento
+    VALUES (?,?,?,?,?,?,?,?,?,?,?)`;
   mysqlConnection.query(query, (err) => {
     if (!err) {
       res.json({

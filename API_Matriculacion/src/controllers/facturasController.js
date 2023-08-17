@@ -37,9 +37,12 @@ controller.save = (req, res) => {
         subtotal,
         total,
         total_pagar,
-        total_pa
+        total_pago,
+        f_documento
     } = req.body;
-    const query = `INSERT INTO factura (id_cliente, id_recibo, n_documento, concepto, cantidad, precio, subtotal, total, total_pagar, total_pago, f_documento) VALUES (?,?,?,?,?,?,?,?,?,?,?)`;
+    const query = `INSERT INTO factura (id_cliente, id_recibo, n_documento, concepto, cantidad, precio, 
+        subtotal, total, total_pagar, total_pago, f_documento) 
+        VALUES (?,?,?,?,?,?,?,?,?,?,?)`;
     mysqlConnection.query(
         query,
         [
