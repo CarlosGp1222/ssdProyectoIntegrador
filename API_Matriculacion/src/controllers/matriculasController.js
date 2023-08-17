@@ -1,7 +1,7 @@
 const mysqlConnection = require("../database");
 const controller = {};
 
-controller.list = (req, res) => {
+controller.list_all = (req, res) => {
 
   const query = ` SELECT id_matricula, a.id_alumno, c.id_curso, a.nombres AS 'nombres_alumno', 
   a.apellidos AS 'apellidos_alumno', n_matricula, estado

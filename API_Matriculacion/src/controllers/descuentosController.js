@@ -1,7 +1,7 @@
 const mysqlConnection = require("../database");
 const controller = {};
 
-controller.list = (req, res) => {
+controller.list_all = (req, res) => {
 
     const query = `SELECT * FROM descuento`;
     mysqlConnection.query(query, (
@@ -79,3 +79,5 @@ controller.update = (req, res) => {
         }
     );
 }
+
+module.exports = controller;
