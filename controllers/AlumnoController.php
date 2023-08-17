@@ -7,6 +7,7 @@ class AlumnoController
 {
     public static function formAlumno(Router $router)
     {
+        session_start();
        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $alumno = [
                 'nombres' => $_POST['nombres'],
@@ -24,6 +25,7 @@ class AlumnoController
         };
 
         $router->render('Alumno/alumno', [
+
           
         ]);
     }

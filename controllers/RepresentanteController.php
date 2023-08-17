@@ -8,6 +8,7 @@ class RepresentanteController
 {
     public static function representante(Router $router)
     {
+        session_start();
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             // $representante = [
@@ -19,7 +20,7 @@ class RepresentanteController
             //     'telefono' => $_POST['telefono'],
             //     'email' => $_POST['email'],
             // ];
-
+            //debuguear($_SESSION['token']);
             $url = "http://localhost:3001/representante";
             $data = array(
                 'nombres' => $_POST['nombres'],
@@ -31,13 +32,22 @@ class RepresentanteController
                 'email' => $_POST['email'],
             );
 
+            $token = $_SESSION['token'];
+
+            //debuguear($data);
+
             $ch = curl_init($url);
             curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
             curl_setopt($ch, CURLOPT_POST, true);
             curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($data));
-            curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
+            curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+                'Content-Type: application/json',
+                'Authorization: Bearer ' . $token
+            ));
 
             $response = curl_exec($ch);
+
+            //debuguear($response);
 
             if (curl_errno($ch)) {
                 echo 'Error:' . curl_error($ch);
