@@ -3,7 +3,7 @@ const controller = {};
 
 controller.list_all = (req, res) => {
 
-    const query = `SELECT * FROM representante`;
+    const query = `SELECT * FROM representantes`;
     mysqlConnection.query(query, (
         err,
         rows
@@ -29,9 +29,10 @@ controller.list_all = (req, res) => {
 
 //insert
 controller.save = (req, res) => {
-    const query = `INSERT INTO representantes(nombres, apellidos, cedula, direccion, telefono, email, genero, f_nacimiento)
-    VALUES (?, ?, ?, ?, ?, ?, ?, ?)`;
+    const query = `INSERT INTO representantes(nombres, apellidos, cedula, direccion, telefono, email, genero)
+    VALUES (?, ?, ?, ?, ?, ?, ?)`;
     mysqlConnection.query(query, (err) => {
+        
         if (!err) {
             res.json({
                 error: false,
@@ -42,6 +43,7 @@ controller.save = (req, res) => {
                 error: true,
                 message: err,
             });
+            console.log("Query aqui"+query);
             console.log(err);
         }
     });
