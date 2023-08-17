@@ -4,7 +4,7 @@ const router = express.Router();
 const representantesController = require('../controllers/representantesController');
 const alumnoController = require('../controllers/alumnosController');
 const loginController = require('../controllers/loginController');
-const matriculaController = require('../controllers/matriculasController');
+const matriculaController = require('../controllers/matriculaController');
 const descuentoController = require('../controllers/descuentosController');
 
 // Importar el middleware

@@ -6,9 +6,8 @@
             <input type="text" name="nombres" placeholder="Nombres" required>
             <input type="text" name="apellidos" placeholder="Apellidos" required>
             <select name="genero" required>
-                <option value="masculino">Masculino</option>
-                <option value="femenino">Femenino</option>
-                <option value="otro">otros 39 tipos de gay</option>
+                <option value="M">Masculino</option>
+                <option value="F">Femenino</option>
             </select>
             <input type="text" name="cedula" placeholder="Cédula" required>
             <input type="text" name="cedulaRepre" placeholder="Cédula Representante" required>

@@ -62,26 +62,50 @@ controller.list_cedula = (req, res) => {
 
 //Insert
 controller.save = (req, res) => {
-  const query = `INSERT INTO alumnos(r.id_representante, d.id_descuento,
-    nombres, apellidos, cedula, direccion, telefono, email, genero, f_nacimiento
-    INNER JOIN representantes AS r ON a.id_representante = r.id_representante
-    INNER JOIN descuento AS d ON a.id_descuento = d.id_descuento
-    VALUES (?,?,?,?,?,?,?,?,?,?,?)`;
-  mysqlConnection.query(query, (err) => {
-    if (!err) {
-      res.json({
-        error: false,
-        message: "Saved",
-      });
-    } else {
-      res.json({
-        error: true,
-        message: err,
-      });
-      console.log(err);
+  const { nombres, apellidos, cedula, direccion, telefono, email, genero, f_nacimiento, cedulaRepre, tipo_matriculacion } = req.body;
+
+  const queryRepresentante = "SELECT id_representante FROM representantes WHERE cedula = ? LIMIT 1";
+  const queryDescuento = "SELECT id_descuento FROM descuento WHERE nombre = ? LIMIT 1";
+
+  mysqlConnection.query(queryRepresentante, [cedulaRepre], (err, results) => {
+    if(err) {
+      return res.json({ error: true, message: err });
     }
+
+    const idRepresentante = results[0]?.id_representante;
+
+    if(!idRepresentante) {
+      return res.json({ error: true, message: "No se encontró el representante con la cédula proporcionada" });
+    }
+
+    mysqlConnection.query(queryDescuento, [tipo_matriculacion], (err, results) => {
+      if(err) {
+        return res.json({ error: true, message: err });
+      }
+
+      const idDescuento = results[0]?.id_descuento;
+
+      if(!idDescuento) {
+        return res.json({ error: true, message: "No se encontró el tipo de matriculación proporcionado" });
+      }
+
+      const insertQuery = `
+        INSERT INTO alumnos(id_representante, id_descuento, nombres, apellidos, cedula, direccion, telefono, email, genero, f_nacimiento)
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+      `;
+
+      mysqlConnection.query(insertQuery, [idRepresentante, idDescuento, nombres, apellidos, cedula, direccion, telefono, email, genero, f_nacimiento], (err) => {
+        if (!err) {
+          res.json({ error: false, message: "Saved" });
+        } else {
+          res.json({ error: true, message: err });
+        }
+      });
+
+    });
   });
 };
+
 
 //Update
 controller.update = (req, res) => {
