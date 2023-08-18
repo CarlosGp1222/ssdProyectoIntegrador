@@ -17,6 +17,7 @@ router.post('/alumno', verifyToken, alumnoController.save); // Protegido
 router.put('/alumno/:cedula', verifyToken, alumnoController.update); // Protegido
 //representantes
 router.get('/representante', verifyToken, representantesController.list_all); // Protegido
+router.get('/representante/:cedula', verifyToken, representantesController.list_one); // Protegido
 router.post('/representante', verifyToken, representantesController.save); // Protegido
 router.put('/representante/:cedula', verifyToken, representantesController.update); // Protegido
 //Login - No se protege porque aquí es donde obtienen el token.

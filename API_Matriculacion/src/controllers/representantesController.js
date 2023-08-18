@@ -73,4 +73,30 @@ controller.update = (req, res) => {
     });
 };
 
+
+controller.list_one = (req, res) => {
+    const { cedula } = req.params;
+    const query = `SELECT * FROM representantes where cedula = '${cedula}'`;
+    mysqlConnection.query(query, (
+        err,
+        rows
+    ) => {
+        if (!err) {
+            res.json({
+                status_code: 202,
+                message: "Listado",
+                tipos: rows,
+                //authData
+            });
+            console.log(rows);
+        } else {
+            res.json({
+                code: 500,
+                error: true,
+                message: err,
+            });
+        }
+    });
+};
+
 module.exports = controller;
