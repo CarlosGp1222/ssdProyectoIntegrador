@@ -40,13 +40,13 @@ class AlumnoController
 
             $response = curl_exec($ch);
 
-            debuguear($response);
+            //debuguear($response);
 
             if (curl_errno($ch)) {
                 echo 'Error:' . curl_error($ch);
             } else {
                 $datos = json_decode($response, true);
-                print_r($datos);
+                //print_r($datos);
             }
 
             curl_close($ch);
