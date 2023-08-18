@@ -8,6 +8,7 @@ use Controllers\AlumnoController;
 use Controllers\RepresentanteController;
 use Controllers\CursoController;
 use Controllers\LoginController;
+use Controllers\MatriculaController;
 
 $router = new Router();
 $router->get('/alumno', [AlumnoController::class, 'formAlumno']);
@@ -20,6 +21,7 @@ $router->get('/cursos', [CursoController::class, 'formCurso']);
 $router->post('/cursos', [CursoController::class, 'formCurso']);
 $router->get('/login', [LoginController::class, 'login']);
 $router->post('/login', [LoginController::class, 'login']);
+$router->get('/matricula', [MatriculaController::class, 'matricula']);
 
 
 

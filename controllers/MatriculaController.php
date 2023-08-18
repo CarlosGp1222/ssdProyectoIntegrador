@@ -10,16 +10,7 @@ class MatriculaController
     {
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            // $matricula = [
-            //     'id' => $_POST['nombres'],
-            //     '' => $_POST['apellidos'],
-            //     'genero' => $_POST['genero'],
-            //     'cedula' => $_POST['cedula'],
-            //     'direccion' => $_POST['direccion'],
-            //     'telefono' => $_POST['telefono'],
-            //     'email' => $_POST['email'],
-            // ];
-
+           
             $url = "http://localhost:3001/matricula";
             $data = array(
                 'id_curso' => $_POST['id_curso'],
