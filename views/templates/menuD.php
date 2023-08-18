@@ -1,6 +1,6 @@
 <div class="menu" id="sideMenu">
     <span class="close-btn" id="closeBtn">&times;</span>
-    <a href="/representante">Representante</a>
+    <a href="/representantes">Representante</a>
     <a href="/alumno">Alumno</a>
     <a href="/cursos">Curso</a>
     <a href="#">Cobro</a>

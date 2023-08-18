@@ -8,9 +8,10 @@ class RepresentanteController
 {
     public static function index(Router $router)
     {
+        session_start();
         $url = "http://localhost:3001/representante";
         $token = $_SESSION['token']; // Asumiendo que ya tienes el token almacenado en la sesión.
-        debuguear($token);
+        // debuguear($token);
         // Inicializar cURL
         $ch = curl_init($url);
 
@@ -32,15 +33,17 @@ class RepresentanteController
 
         // Decodificar respuesta JSON
         $obj = json_decode($data);
-
+        
         // Procesar la respuesta
-        $resultado = $obj->data;
+        $resultado = $obj->tipos;
         
         // $reprentantes = array_shift($resultado);
-
+        // debuguear($resultado);
         // Cerrar cURL
         curl_close($ch);
-        $router->render('alumno/representante-vista', []);
+        $router->render('alumno/representante-vista', [
+            'representantes' => $resultado,
+        ]);
     }
     public static function representante(Router $router)
     {
@@ -90,5 +93,41 @@ class RepresentanteController
 
     public static function editarRepresentante(Router $router)
     {
+        session_start();
+        $id = $_GET['id'];
+        $url = "http://localhost:3001/representante/{$id}";
+        $token = $_SESSION['token']; // Asumiendo que ya tienes el token almacenado en la sesión.
+        // debuguear($token);
+        // Inicializar cURL
+        $ch = curl_init($url);
+
+        // Configurar opciones de cURL
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+            'Authorization: Bearer ' . $token
+        ));
+
+        // Ejecutar petición y obtener resultado
+        $data = curl_exec($ch);
+        
+        // Si hay un error en la petición
+        if (curl_errno($ch)) {
+            echo 'Error:' . curl_error($ch);
+            curl_close($ch);
+            exit;
+        }
+
+        // Decodificar respuesta JSON
+        $obj = json_decode($data);
+        
+        // Procesar la respuesta
+        $resultado = $obj->tipos;
+        $reprentante = array_shift($resultado);
+        curl_close($ch);
+        $router->render('alumno/representante-editar', [
+            'representante' => $reprentante,
+        ]);
     }
+    //mostrar vista editar
+    
 }
