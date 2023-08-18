@@ -100,7 +100,7 @@ class RepresentanteController
             } else {
                 $datos = json_decode($response, true);
                 //print_r($datos);
-                if (isset($datos) && $datos === 'Token inválido' || $datos === 'Error al desencriptar el token' || $datos === 'Token no proporcionado') {
+                if (isset($response) && $response === 'Token inválido' || $response === 'Error al desencriptar el token' || $response === 'Token no proporcionado') {
                     // Aquí puedes manejar el error, por ejemplo, redirigiendo al usuario al login
                     header('Location: /login');
                     exit;
