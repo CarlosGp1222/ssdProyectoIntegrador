@@ -1,6 +1,33 @@
 const mysqlConnection = require("../database");
 const controller = {};
 
+
+controller.list = (req, res) => {
+
+  const query = `SELECT * FROM alumnos`;
+  mysqlConnection.query(query, (
+    err,
+    rows
+  ) => {
+    if (!err) {
+      res.json({
+        status_code: 202,
+        message: "Listado",
+        tipos: rows,
+        //authData
+      });
+      console.log(rows);
+    } else {
+      res.json({
+        code: 500,
+        error: true,
+        message: err,
+      });
+    }
+  });
+};
+
+
 controller.list_all = (req, res) => {
 
   const query = `SELECT a.id_alumno, r.id_representante, d.id_descuento,

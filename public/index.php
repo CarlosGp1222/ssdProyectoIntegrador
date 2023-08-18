@@ -13,6 +13,7 @@ use Controllers\MatriculaController;
 $router = new Router();
 $router->get('/alumno', [AlumnoController::class, 'formAlumno']);
 $router->post('/alumno', [AlumnoController::class, 'formAlumno']);
+$router->get('/alumnos', [AlumnoController::class, 'index']);
 $router->get('/representante', [RepresentanteController::class, 'representante']);
 $router->post('/representante', [RepresentanteController::class, 'representante']);
 $router->get('/representantes', [RepresentanteController::class, 'index']);
@@ -20,6 +21,7 @@ $router->get('/representantes-editar', [RepresentanteController::class, 'editarR
 $router->post('/representantes-editar', [RepresentanteController::class, 'editarRepresentante']);
 $router->get('/cursos', [CursoController::class, 'formCurso']);
 $router->post('/cursos', [CursoController::class, 'formCurso']);
+$router->get('/cursosV', [CursoController::class, 'index']);
 $router->get('/login', [LoginController::class, 'login']);
 $router->post('/login', [LoginController::class, 'login']);
 $router->Get('/matriculaListar', [MatriculaController::class, 'matriculaListar']);

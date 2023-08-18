@@ -9,6 +9,12 @@ class RepresentanteController
     public static function index(Router $router)
     {
         session_start();
+
+        if (!isset($_SESSION['token']) || empty($_SESSION['token'])) {
+            header('Location: /login');
+            exit;
+        }
+
         $url = "http://localhost:3001/representante";
         $token = $_SESSION['token']; // Asumiendo que ya tienes el token almacenado en la sesión.
         // debuguear($token);
@@ -23,7 +29,7 @@ class RepresentanteController
 
         // Ejecutar petición y obtener resultado
         $data = curl_exec($ch);
-        
+        //debuguear($data);
         // Si hay un error en la petición
         if (curl_errno($ch)) {
             echo 'Error:' . curl_error($ch);
@@ -33,6 +39,13 @@ class RepresentanteController
 
         // Decodificar respuesta JSON
         $obj = json_decode($data);
+
+        if (isset($data) && $data === 'Token inválido' || $data === 'Error al desencriptar el token' || $data === 'Token no proporcionado') {
+            // Aquí puedes manejar el error, por ejemplo, redirigiendo al usuario al login
+            header('Location: /login');
+            exit;
+        }
+
         
         // Procesar la respuesta
         $resultado = $obj->tipos;
@@ -48,6 +61,11 @@ class RepresentanteController
     public static function representante(Router $router)
     {
         session_start();
+
+        if (!isset($_SESSION['token']) || empty($_SESSION['token'])) {
+            header('Location: /login');
+            exit;
+        }
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $url = "http://localhost:3001/representante";
@@ -81,7 +99,12 @@ class RepresentanteController
                 echo 'Error:' . curl_error($ch);
             } else {
                 $datos = json_decode($response, true);
-                // print_r($datos);
+                //print_r($datos);
+                if (isset($datos) && $datos === 'Token inválido' || $datos === 'Error al desencriptar el token' || $datos === 'Token no proporcionado') {
+                    // Aquí puedes manejar el error, por ejemplo, redirigiendo al usuario al login
+                    header('Location: /login');
+                    exit;
+                }
             }
 
             curl_close($ch);
@@ -94,6 +117,12 @@ class RepresentanteController
     public static function editarRepresentante(Router $router)
     {
         session_start();
+
+        if (!isset($_SESSION['token']) || empty($_SESSION['token'])) {
+            header('Location: /login');
+            exit;
+        }
+
         $id = $_GET['id'];
         $url = "http://localhost:3001/representante/{$id}";
         $token = $_SESSION['token']; // Asumiendo que ya tienes el token almacenado en la sesión.
@@ -119,6 +148,12 @@ class RepresentanteController
 
         // Decodificar respuesta JSON
         $obj = json_decode($data);
+
+        if (isset($data) && $data === 'Token inválido' || $data === 'Error al desencriptar el token' || $data === 'Token no proporcionado') {
+            // Aquí puedes manejar el error, por ejemplo, redirigiendo al usuario al login
+            header('Location: /login');
+            exit;
+        }
         
         // Procesar la respuesta
         $resultado = $obj->tipos;

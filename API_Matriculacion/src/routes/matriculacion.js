@@ -6,12 +6,14 @@ const alumnoController = require('../controllers/alumnosController');
 const loginController = require('../controllers/loginController');
 const matriculaController = require('../controllers/matriculaController');
 const descuentoController = require('../controllers/descuentosController');
+const cursosController = require('../controllers/cursosController');
 
 // Importar el middleware
 const verifyToken = require('../middlewares/authMiddleware');
 
 //alumnos
 router.get('/alumno', verifyToken, alumnoController.list_all); // Protegido
+router.get('/alumnos', verifyToken, alumnoController.list); // Protegido
 router.get('/alumno/:cedula', verifyToken, alumnoController.list_cedula); // Protegido
 router.post('/alumno', verifyToken, alumnoController.save); // Protegido
 router.put('/alumno/:cedula', verifyToken, alumnoController.update); // Protegido
@@ -32,6 +34,8 @@ router.post('/descuento', verifyToken, descuentoController.save); // Protegido
 router.put('/descuento/:id_descuento', verifyToken, descuentoController.update); // Protegido
 
 //cursos
+router.post('/curso', verifyToken, cursosController.save);
+router.get('/cursos', verifyToken, cursosController.list);
 //facturas
 //nota
 //recibo

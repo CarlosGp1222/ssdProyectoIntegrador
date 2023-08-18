@@ -5,9 +5,67 @@ use MVC\Router;
 
 class AlumnoController
 {
+    public static function index(Router $router)
+    {
+        session_start();
+
+        if (!isset($_SESSION['token']) || empty($_SESSION['token'])) {
+            header('Location: /login');
+            exit;
+        }
+
+        $url = "http://localhost:3001/alumnos";
+        $token = $_SESSION['token']; // Asumiendo que ya tienes el token almacenado en la sesión.
+        // debuguear($token);
+        // Inicializar cURL
+        $ch = curl_init($url);
+
+        // Configurar opciones de cURL
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+            'Authorization: Bearer ' . $token
+        ));
+
+        // Ejecutar petición y obtener resultado
+        $data = curl_exec($ch);
+        //debuguear($data);
+        // Si hay un error en la petición
+        if (curl_errno($ch)) {
+            echo 'Error:' . curl_error($ch);
+            curl_close($ch);
+            exit;
+        }
+
+        // Decodificar respuesta JSON
+        $obj = json_decode($data);
+        
+
+        if (isset($data) && $data === 'Token inválido' || $data === 'Error al desencriptar el token' || $data === 'Token no proporcionado') {
+            // Aquí puedes manejar el error, por ejemplo, redirigiendo al usuario al login
+            header('Location: /login');
+            exit;
+        }
+
+        
+        // Procesar la respuesta
+        $resultado = $obj->tipos;
+        
+        // $reprentantes = array_shift($resultado);
+        // debuguear($resultado);
+        // Cerrar cURL
+        curl_close($ch);
+        $router->render('alumno/alumno-vista', [
+            'alumnos' => $resultado,
+        ]);
+    }
     public static function formAlumno(Router $router)
     {
         session_start();
+
+        if (!isset($_SESSION['token']) || empty($_SESSION['token'])) {
+            header('Location: /login');
+            exit;
+        }
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
@@ -47,6 +105,11 @@ class AlumnoController
             } else {
                 $datos = json_decode($response, true);
                 //print_r($datos);
+                if (isset($datos) && $datos === 'Token inválido' || $datos === 'Error al desencriptar el token' || $datos === 'Token no proporcionado') {
+                    // Aquí puedes manejar el error, por ejemplo, redirigiendo al usuario al login
+                    header('Location: /login');
+                    exit;
+                }
             }
 
             curl_close($ch);

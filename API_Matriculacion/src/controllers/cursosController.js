@@ -27,11 +27,11 @@ controller.list = (req, res) => {
 };
 
 controller.save = (req, res) => {
-  const { id_curso, nombre } = req.body;
+  const { nombre } = req.body;
   const query = `INSERT INTO cursos(nombre) VALUES (?)`;
   mysqlConnection.query(
     query,
-    [id_curso, nombre],
+    [nombre],
     (err, rows, fields) => {
       if (!err) {
         res.json({
