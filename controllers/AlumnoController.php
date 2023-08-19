@@ -76,7 +76,7 @@ class AlumnoController
                 'genero' => $_POST['genero'],
                 'cedula' => $_POST['cedula'],
                 'cedulaRepre' => $_POST['cedulaRepre'],
-                'fecha_nacimiento' => $_POST['fecha_nacimiento'],
+                'f_nacimiento' => $_POST['fecha_nacimiento'],
                 'direccion' => $_POST['direccion'],
                 'telefono' => $_POST['telefono'],
                 'email' => $_POST['email'],
@@ -113,6 +113,11 @@ class AlumnoController
             }
 
             curl_close($ch);
+
+            if ($datos['message'] === 'Saved') {
+                header('Location: /alumnos');
+            }
+
         }
 
         $router->render('Alumno/alumno', []);

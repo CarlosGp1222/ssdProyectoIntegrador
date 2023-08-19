@@ -43,10 +43,11 @@ class LoginController
                 if (isset($decodedResponse['token'])) {
                     $_SESSION['token'] = $decodedResponse['token'];
                     //debuguear($_SESSION['token']);
-                    header('Location: /alumno');
+                    header('Location: /representantes');
                     exit;
                 } else {
                     $errores[] = 'Error en las credenciales.';
+                    //debuguear($errores);
                 }
             }
 
@@ -60,3 +61,5 @@ class LoginController
         ]);
     }
 }
+
+

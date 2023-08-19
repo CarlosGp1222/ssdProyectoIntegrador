@@ -109,6 +109,10 @@ class RepresentanteController
 
             curl_close($ch);
             // debuguear($representante);
+
+            if ($datos['message'] === 'Saved') {
+                header('Location: /representantes');
+            }
         };
 
         $router->render('alumno/representante', []);

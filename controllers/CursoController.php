@@ -94,6 +94,11 @@ class CursoController
 
             curl_close($ch);
             // debuguear($representante);
+
+            if ($datos['message'] === 'Saved') {
+                header('Location: /cursosV');
+            }
+
         };
 
         $router->render('Alumno/cursos', [

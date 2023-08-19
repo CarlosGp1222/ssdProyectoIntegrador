@@ -1,6 +1,13 @@
 <div class="containerLog">
     <div class="section">
         <h2>Login</h2>
+        <?php if (!empty($errores)) : ?>
+            <div class="alert alert-danger">
+                <?php foreach ($errores as $error) : ?>
+                    <p><?php echo $error; ?></p>
+                <?php endforeach; ?>
+            </div>
+        <?php endif; ?>
         <form action="/login" method="POST">
             <div class="inputGroup">
                 <label for="username">Usuario:</label>
