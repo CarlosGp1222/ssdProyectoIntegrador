@@ -78,7 +78,7 @@ class CursoController
 
             $response = curl_exec($ch);
 
-            debuguear($response);
+            //debuguear($response);
 
             if (curl_errno($ch)) {
                 echo 'Error:' . curl_error($ch);
@@ -95,7 +95,7 @@ class CursoController
             curl_close($ch);
             // debuguear($representante);
 
-            if ($datos['message'] === 'Saved') {
+            if ($datos['message'] === 'Curso creado') {
                 header('Location: /cursosV');
             }
 
