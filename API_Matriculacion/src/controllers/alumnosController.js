@@ -92,7 +92,7 @@ controller.save = (req, res) => {
   const { nombres, apellidos, cedula, direccion, telefono, email, genero, f_nacimiento, cedulaRepre, tipo_matriculacion } = req.body;
 
   const queryRepresentante = "SELECT id_representante FROM representantes WHERE cedula = ? LIMIT 1";
-  const queryDescuento = "SELECT id_descuento FROM descuento WHERE nombre = ? LIMIT 1";
+  const queryDescuento = "SELECT id_descuento FROM descuento WHERE id_descuento = ? LIMIT 1";
 
   mysqlConnection.query(queryRepresentante, [cedulaRepre], (err, results) => {
     if(err) {

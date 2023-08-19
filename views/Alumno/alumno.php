@@ -18,8 +18,8 @@
             <input type="date" name="fecha_nacimiento" required>
             <label for="tipo_matriculacion">Tipo de Matriculación:</label>
             <select name="tipo_matriculacion" required>
-                <option value="regular">Regular</option>
-                <option value="becado">Becado</option>
+                <option value="1">Regular</option>
+                <option value="2">Becado</option>
             </select>
             <button type="submit">Agregar</button>
         </form>

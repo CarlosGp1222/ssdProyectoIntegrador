@@ -6,8 +6,8 @@
             <input type="text" name="nombres" placeholder="Nombres" value="<?php echo $representante->nombres ?? "" ?>" required>
             <input type="text" name="apellidos" placeholder="Apellidos" value="<?php echo $representante->apellidos ?? "" ?>" required>
             <select name="genero" required>
-                <option value="M">Masculino</option>
-                <option value="F">Femenino</option>
+                <option value="M" <?php echo $representante->genero == "M" ? "selected" : ""?>>Masculino</option>
+                <option value="F" <?php echo $representante->genero == "F" ? "selected" : ""?>>Femenino</option>
             </select>
             <input type="text" name="cedula" placeholder="Cédula" value="<?php echo $representante->cedula ?? "" ?>" required>
             <input type="text" name="direccion" placeholder="Dirección" value="<?php echo $representante->direccion ?? "" ?>" required>
