@@ -145,6 +145,9 @@ controller.update = (req, res) => {
     WHERE cedula = '${cedula}'`;
 
   mysqlConnection.query(query, [apellidos, cedula], (err) => {
+    if(!cedula_representante) {
+      return res.json({ error: true, message: "No se encontró el representante con la cédula proporcionada" });
+    }
     if (!err) {
       res.json({
         error: false,
