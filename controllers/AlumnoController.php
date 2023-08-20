@@ -16,8 +16,7 @@ class AlumnoController
         
         $mensaje = $_GET['mensaje'] ?? null;
         $url = "http://localhost:3001/alumnos";
-        $obj = consultaApi($url);
-        $resultado = $obj->tipos;
+        $resultado = consultaApi($url);
         
         // $reprentantes = array_shift($resultado);
         // debuguear($resultado);
@@ -39,35 +38,12 @@ class AlumnoController
 
 
         $url = "http://localhost:3001/descuento";
-        $token = $_SESSION['token']; // Asumiendo que ya tienes el token almacenado en la sesión.
-        // debuguear($token);
-        // Inicializar cURL
-        $ch = curl_init($url);
-
-        // Configurar opciones de cURL
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($ch, CURLOPT_HTTPHEADER, array(
-            'Authorization: Bearer ' . $token
-        ));
-
-        // Ejecutar petición y obtener resultado
-        $data = curl_exec($ch);
-        //debuguear($data);
-        // Si hay un error en la petición
-        if (curl_errno($ch)) {
-            echo 'Error:' . curl_error($ch);
-            curl_close($ch);
-            exit;
-        }
-
-        // Decodificar respuesta JSON
-        $obj = json_decode($data);
-        $descuentos = $obj->tipos;
+                
+        $descuentos = consultaApi($url);
         
         //debuguear($descuentos);
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-
             $url = "http://localhost:3001/alumno"; // Nota: Se ha cambiado la ruta de la API.
             $data = array(
                 'nombres' => $_POST['nombres'],
@@ -82,32 +58,8 @@ class AlumnoController
                 'tipo_matriculacion' => $_POST['tipo_matriculacion'],
             );
 
-            $ch = curl_init($url);
-            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-            curl_setopt($ch, CURLOPT_POST, true);
-            curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($data));
-            curl_setopt($ch, CURLOPT_HTTPHEADER, array(
-                'Content-Type: application/json',
-                'Authorization: Bearer ' . $token
-            ));
+            $datos = EnvioPost($url, $data);
 
-            $response = curl_exec($ch);
-            
-            if (curl_errno($ch)) {
-                echo 'Error:' . curl_error($ch);
-            } else {
-                $datos = json_decode($response, true);
-                //print_r($datos);
-                if (isset($response) && $response === 'Token inválido' || $response === 'Error al desencriptar el token' || $response === 'Token no proporcionado') {
-                    // Aquí puedes manejar el error, por ejemplo, redirigiendo al usuario al login
-                    header('Location: /login');
-                    exit;
-                }
-            }
-            
-            curl_close($ch);
-            //debuguear($datos);
-            
             if ($datos['error']) {
                 $mensaje = $datos['message'];
             }
