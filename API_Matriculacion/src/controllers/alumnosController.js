@@ -150,11 +150,12 @@ controller.save = async (req, res) => {
 controller.update = (req, res) => {
   const { nombres, apellidos, direccion, telefono, email, genero, f_nacimiento, cedula_representante } = req.body;
   const { cedula } = req.params;
-  const query = `UPDATE alumnos SET nombres = '${nombres}', apellidos = '${apellidos}', cedula = '${cedula}', 
-    direccion = '${direccion}', telefono = '${telefono}', email = '${email}', genero = '${genero}', 
-    f_nacimiento = '${f_nacimiento}', r.cedula AS 'cedula_representante' = '${cedula_representante}',
-    INNER JOIN representantes AS r ON a.id_representante = r.id_representante 
-    WHERE cedula = '${cedula}'`;
+  const query = `UPDATE alumnos AS a
+  INNER JOIN representantes AS r ON a.id_representante = r.id_representante 
+  SET a.nombres = '${nombres}', a.apellidos = '${apellidos}', a.cedula = '${cedula}', 
+      a.direccion = '${direccion}', a.telefono = '${telefono}', a.email = '${email}', 
+      a.genero = '${genero}', a.f_nacimiento = '${f_nacimiento}', r.cedula = '${cedula_representante}'
+  WHERE a.cedula = '${cedula}'`;
 
   mysqlConnection.query(query, [apellidos, cedula], (err) => {
     if(!cedula_representante) {
