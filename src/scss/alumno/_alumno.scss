@@ -9,7 +9,8 @@ $secondary-color: #ecf0f1;
     padding: 2rem;
     font-family: $font-family;
     background-color: $secondary-color;
-
+    min-height: 100vh;
+    max-height: 1000vh;
     h2 {
         color: $primary-color;
         text-align: center;
