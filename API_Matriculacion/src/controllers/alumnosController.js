@@ -61,10 +61,13 @@ controller.list_all = (req, res) => {
 
 controller.list_cedula = (req, res) => {
   const { cedula } = req.params;
-  const query = `SELECT r.id_representante, r.cedula AS 'cedula_representante', r.nombres, r.apellidos, r.direccion, r.telefono, r.email
+  const query = `SELECT d.id_descuento,
+  a.nombres, a.apellidos, a.cedula, a.direccion, a.telefono, a.email, a.genero, a.f_nacimiento,
+  r.cedula AS 'cedula_representante', d.nombre AS 'tipo_matricula'
   FROM alumnos AS a 
   INNER JOIN representantes AS r ON a.id_representante = r.id_representante 
-  WHERE r.cedula = '${cedula}'`;
+  INNER JOIN descuento AS d ON a.id_descuento = d.id_descuento
+  WHERE a.cedula = '${cedula}'`;
   mysqlConnection.query(query, [cedula], (
     err,
     rows
