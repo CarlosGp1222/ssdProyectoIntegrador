@@ -29,6 +29,9 @@ img {
     max-width: 100%;
 }
 .mensaje{
+    width: 70%;
+    margin: 0 auto;
+    margin-bottom: 2rem;
     padding: 1rem;
     //color amarillo de advertencia
     background-color: #fbc02d;
@@ -36,3 +39,20 @@ img {
     color: rgb(95, 95, 95);
     text-align: center;
 }
+
+.container__agregar{
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    padding-right: 25.5rem;
+    margin: 2rem;
+    .agregar{
+        padding: 1rem;
+        //color verde de exito
+        background-color: v.$primary-color;
+        border-radius: .5rem;
+        color: rgb(255, 255, 255);
+        text-align: center;
+    }
+}
+

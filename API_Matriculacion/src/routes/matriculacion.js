@@ -48,7 +48,7 @@ router.get('/descuento', descuentoController.list_all);
 router.post('/descuento', descuentoController.save);
 router.put('/descuento/:id_descuento', descuentoController.update);
 //metodos
-router.get('/metodos', metodosController.list_all);
+router.get('/metodos', metodosController.list);
 router.post('/metodos', metodosController.save);
 router.put('/metodos/:id_metodo', metodosController.update);
 

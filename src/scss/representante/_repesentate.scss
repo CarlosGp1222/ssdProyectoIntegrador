@@ -1,11 +1,14 @@
 $primary-color: #34495e;
-
-.contenedor-card{
+.contenedor_cards{
     min-height: 100vh;
     max-height: 1000vh;
+}
+.contenedor-card{
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     padding: 0 20rem;
+    row-gap: 3rem;
+    column-gap: 0;
 }
 .titulo_general{
     text-align: center;
