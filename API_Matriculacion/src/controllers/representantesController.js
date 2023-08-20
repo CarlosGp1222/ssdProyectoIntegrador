@@ -32,6 +32,17 @@ controller.save = (req, res) => {
     const { nombres, apellidos, cedula, direccion, telefono, email, genero } = req.body;
     const query = `INSERT INTO representantes(nombres, apellidos, cedula, direccion, telefono, email, genero)
     VALUES (?, ?, ?, ?, ?, ?, ?)`;
+
+    const queryAlumnos = "SELECT id_representante FROM representantes WHERE cedula = ? LIMIT 1";
+    mysqlConnection.query(queryAlumnos, [cedula], (err, results) => {
+      if (err) {
+        return res.json({ error: true, message: err });
+      }
+
+      if (results.length > 0) {
+        return res.json({ error: true, message: "La cédula ya está en uso por otro representante" });
+      }
+
     mysqlConnection.query(query, [nombres, apellidos, cedula, direccion, telefono, email, genero],(err) => {
         
         if (!err) {
@@ -48,6 +59,7 @@ controller.save = (req, res) => {
             console.log(err);
         }
     });
+});
 };
 
 //update
