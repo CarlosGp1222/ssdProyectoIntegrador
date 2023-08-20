@@ -18,7 +18,7 @@ class RepresentanteController
         $url = "http://localhost:3001/representante";
         $resultado = consultaApi($url);    
 
-        $mensaje = $_GET['mensaje'];
+        $mensaje = $_GET['mensaje'] ?? null;
         
         $router->render('alumno/representante-vista', [
             'representantes' => $resultado,
