@@ -70,7 +70,7 @@ class RepresentanteController
         $url = "http://localhost:3001/representante/{$id}";
         $resultado = consultaApi($url);
         $reprentante = array_shift($resultado);
-
+        
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $url = "http://localhost:3001/representante/{$_POST['cedula']}";
             $data = array(
@@ -83,7 +83,6 @@ class RepresentanteController
                 'email' => $_POST['email'],
             );
             $datos = EnvioPost($url, $data, "PUT");
-            // debuguear($representante);
 
             if ($datos['message'] === 'Actualizado') {
                 header('Location: /representantes?mensaje=Representante actualizado correctamente');
