@@ -9,7 +9,7 @@
                 <option value="M">Masculino</option>
                 <option value="F">Femenino</option>
             </select>
-            <input type="text" name="cedula" placeholder="Cédula" required>
+            <!-- <input type="text" name="cedula" placeholder="Cédula" required> -->
             <input type="text" name="cedulaRepre" placeholder="Cédula Representante" required>
             <input type="text" name="direccion" placeholder="Dirección" required>
             <input type="text" name="telefono" placeholder="Teléfono" required>

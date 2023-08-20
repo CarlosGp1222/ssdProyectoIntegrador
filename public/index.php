@@ -14,6 +14,8 @@ $router = new Router();
 $router->get('/alumno', [AlumnoController::class, 'formAlumno']);
 $router->post('/alumno', [AlumnoController::class, 'formAlumno']);
 $router->get('/alumnos', [AlumnoController::class, 'index']);
+$router->get('/alumnos-editar', [AlumnoController::class, 'editarRepresentante']);
+$router->post('/alumnos-editar', [AlumnoController::class, 'editarRepresentante']);
 $router->get('/representante', [RepresentanteController::class, 'representante']);
 $router->post('/representante', [RepresentanteController::class, 'representante']);
 $router->get('/representantes', [RepresentanteController::class, 'index']);
