@@ -1,5 +1,8 @@
 <h1 class="titulo_general">Lista alumnos</h1>
-<a href="/alumno">Agregar Alumno</a>
+<a class="agregar" href="/alumno">Agregar Alumno</a>
+<?php 
+    require_once __DIR__.'/../templates/alerta.php';
+?>
 <div class="contenedor-card">
     
     <?php foreach ($alumnos as $alumno) { ?>

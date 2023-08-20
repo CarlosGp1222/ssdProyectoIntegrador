@@ -1,5 +1,5 @@
 <h1 class="titulo_general">Lista representantes</h1>
-<a href="/representante">Agregar Representante</a>
+<a class="agregar" href="/representante">Agregar Representante</a>
 <div class="contenedor-card">
     
     <?php foreach ($representantes as $representante) { ?>

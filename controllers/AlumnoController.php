@@ -8,15 +8,16 @@ class AlumnoController
     public static function index(Router $router)
     {
         session_start();
-
+        $mensaje = "";
         if (!isset($_SESSION['token']) || empty($_SESSION['token'])) {
             header('Location: /login');
             exit;
         }
-
+        
+        $mensaje = $_GET['mensaje'] ?? null;
         $url = "http://localhost:3001/alumnos";
         $token = $_SESSION['token']; // Asumiendo que ya tienes el token almacenado en la sesión.
-        // debuguear($token);
+        
         // Inicializar cURL
         $ch = curl_init($url);
 
@@ -28,7 +29,7 @@ class AlumnoController
 
         // Ejecutar petición y obtener resultado
         $data = curl_exec($ch);
-        //debuguear($data);
+        
         // Si hay un error en la petición
         if (curl_errno($ch)) {
             echo 'Error:' . curl_error($ch);
@@ -56,16 +57,46 @@ class AlumnoController
         curl_close($ch);
         $router->render('alumno/alumno-vista', [
             'alumnos' => $resultado,
+            'mensaje' => $mensaje,
         ]);
     }
     public static function formAlumno(Router $router)
     {
         session_start();
-
+        $mensaje = null;
         if (!isset($_SESSION['token']) || empty($_SESSION['token'])) {
             header('Location: /login');
             exit;
         }
+
+
+        $url = "http://localhost:3001/descuento";
+        $token = $_SESSION['token']; // Asumiendo que ya tienes el token almacenado en la sesión.
+        // debuguear($token);
+        // Inicializar cURL
+        $ch = curl_init($url);
+
+        // Configurar opciones de cURL
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+            'Authorization: Bearer ' . $token
+        ));
+
+        // Ejecutar petición y obtener resultado
+        $data = curl_exec($ch);
+        //debuguear($data);
+        // Si hay un error en la petición
+        if (curl_errno($ch)) {
+            echo 'Error:' . curl_error($ch);
+            curl_close($ch);
+            exit;
+        }
+
+        // Decodificar respuesta JSON
+        $obj = json_decode($data);
+        $descuentos = $obj->tipos;
+        
+        //debuguear($descuentos);
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
@@ -83,10 +114,6 @@ class AlumnoController
                 'tipo_matriculacion' => $_POST['tipo_matriculacion'],
             );
 
-            //debuguear($data);
-
-            $token = $_SESSION['token']; // Asumiendo que el token ya está almacenado en la sesión.
-
             $ch = curl_init($url);
             curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
             curl_setopt($ch, CURLOPT_POST, true);
@@ -97,9 +124,7 @@ class AlumnoController
             ));
 
             $response = curl_exec($ch);
-
-            //debuguear($response);
-
+            
             if (curl_errno($ch)) {
                 echo 'Error:' . curl_error($ch);
             } else {
@@ -111,15 +136,22 @@ class AlumnoController
                     exit;
                 }
             }
-
+            
             curl_close($ch);
-
-            if ($datos['message'] === 'Saved') {
-                header('Location: /alumnos');
+            //debuguear($datos);
+            
+            if ($datos['error']) {
+                $mensaje = $datos['message'];
             }
-
+            if ($datos['message'] === 'Saved') {
+                header('Location: /alumnos?mensaje=Alumno agregado correctamente');
+            }
+            //debuguear($mensaje);
         }
 
-        $router->render('Alumno/alumno', []);
+        $router->render('Alumno/alumno', [
+            'descuentos' => $descuentos,
+            'mensaje' => $mensaje,
+        ]);
     }
 }
