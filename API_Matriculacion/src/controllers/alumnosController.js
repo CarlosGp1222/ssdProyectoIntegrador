@@ -1,3 +1,4 @@
+const e = require("express");
 const mysqlConnection = require("../database");
 const controller = {};
 
@@ -90,47 +91,56 @@ controller.list_cedula = (req, res) => {
 };
 
 //Insert
-controller.save = (req, res) => {
+controller.save = async (req, res) => {
   const { nombres, apellidos, cedula, direccion, telefono, email, genero, f_nacimiento, cedulaRepre, tipo_matriculacion } = req.body;
-
   const queryRepresentante = "SELECT id_representante FROM representantes WHERE cedula = ? LIMIT 1";
   const queryDescuento = "SELECT id_descuento FROM descuento WHERE id_descuento = ? LIMIT 1";
 
   mysqlConnection.query(queryRepresentante, [cedulaRepre], (err, results) => {
-    if(err) {
+    if (err) {
       return res.json({ error: true, message: err });
     }
 
     const idRepresentante = results[0]?.id_representante;
 
-    if(!idRepresentante) {
+    if (!idRepresentante) {
       return res.json({ error: true, message: "No se encontró el representante con la cédula proporcionada" });
     }
 
-    mysqlConnection.query(queryDescuento, [tipo_matriculacion], (err, results) => {
-      if(err) {
+    const queryAlumnos = "SELECT id_alumno FROM alumnos WHERE cedula = ? LIMIT 1";
+    mysqlConnection.query(queryAlumnos, [cedula], (err, results) => {
+      if (err) {
         return res.json({ error: true, message: err });
       }
 
-      const idDescuento = results[0]?.id_descuento;
-
-      if(!idDescuento) {
-        return res.json({ error: true, message: "No se encontró el tipo de matriculación proporcionado" });
+      if (results.length > 0) {
+        return res.json({ error: true, message: "La cédula ya está en uso por otro alumno" });
       }
 
-      const insertQuery = `
-        INSERT INTO alumnos(id_representante, id_descuento, nombres, apellidos, cedula, direccion, telefono, email, genero, f_nacimiento)
-        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-      `;
-
-      mysqlConnection.query(insertQuery, [idRepresentante, idDescuento, nombres, apellidos, cedula, direccion, telefono, email, genero, f_nacimiento], (err) => {
-        if (!err) {
-          res.json({ error: false, message: "Saved" });
-        } else {
-          res.json({ error: true, message: err });
+      mysqlConnection.query(queryDescuento, [tipo_matriculacion], (err, results) => {
+        if (err) {
+          return res.json({ error: true, message: err });
         }
-      });
 
+        const idDescuento = results[0]?.id_descuento;
+
+        if (!idDescuento) {
+          return res.json({ error: true, message: "No se encontró el tipo de matriculación proporcionado" });
+        }
+
+        const insertQuery = `
+          INSERT INTO alumnos(id_representante, id_descuento, nombres, apellidos, cedula, direccion, telefono, email, genero, f_nacimiento)
+          VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+        `;
+
+        mysqlConnection.query(insertQuery, [idRepresentante, idDescuento, nombres, apellidos, cedula, direccion, telefono, email, genero, f_nacimiento], (err) => {
+          if (!err) {
+            return res.json({ error: false, message: "Saved" });
+          } else {
+            return res.json({ error: true, message: err });
+          }
+        });
+      });
     });
   });
 };
