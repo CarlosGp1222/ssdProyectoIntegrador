@@ -9,6 +9,7 @@ use Controllers\RepresentanteController;
 use Controllers\CursoController;
 use Controllers\LoginController;
 use Controllers\MatriculaController;
+use Controllers\facturaController;
 
 $router = new Router();
 $router->get('/alumno', [AlumnoController::class, 'formAlumno']);
@@ -28,7 +29,8 @@ $router->get('/login', [LoginController::class, 'login']);
 $router->post('/login', [LoginController::class, 'login']);
 $router->Get('/matriculaListar', [MatriculaController::class, 'matriculaListar']);
 $router->Post('/matricula', [MatriculaController::class, 'matricula']);
-
+$router->get('/facturas', [facturaController::class, 'index']);
+$router->post('/facturas', [facturaController::class, 'index']);
 
 
 // Comprueba y valida las rutas, que existan y les asigna las funciones del Controlador

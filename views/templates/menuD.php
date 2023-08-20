@@ -4,7 +4,7 @@
     <a href="/alumnos">Alumno</a>
     <a href="/cursosV">Curso</a>
     <a href="#">Cobro</a>
-    <a href="#">Factura</a>
+    <a href="/facturas">Factura</a>
 </div>
 
 <button id="openMenu">☰</button>
