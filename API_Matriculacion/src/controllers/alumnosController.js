@@ -148,8 +148,8 @@ controller.save = async (req, res) => {
 
 //Update
 controller.update = (req, res) => {
-  const { apellidos } = req.body;
-  const { cedula, cedula_representante } = req.params;
+  const { nombres, apellidos, direccion, telefono, email, genero, f_nacimiento, cedula_representante } = req.body;
+  const { cedula } = req.params;
   const query = `UPDATE alumnos SET nombres = '${nombres}', apellidos = '${apellidos}', cedula = '${cedula}', 
     direccion = '${direccion}', telefono = '${telefono}', email = '${email}', genero = '${genero}', 
     f_nacimiento = '${f_nacimiento}', r.cedula AS 'cedula_representante' = '${cedula_representante}',
