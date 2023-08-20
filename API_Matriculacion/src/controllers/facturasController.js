@@ -1,9 +1,14 @@
 const mysqlConnection = require("../database");
 const controller = {};
 
-controller.list = (req, res) => {
+controller.list_all = (req, res) => {
 
-    const query = `SELECT * FROM factura`;
+    const query = `Select r.nombres, r.apellidos, r.cedula, r.direccion, r.telefono, r.email, 
+    rc.n_documento AS 'n_documento_recibo', f.n_documento 'n_documento_factura', f.concepto, 
+    f.cantidad, f.precio, f.subtotal, f.total, f.total_pagar, f.f_documento
+    FROM factura AS f
+    INNER JOIN representantes AS r ON r.id_representante = f.id_cliente
+    INNER JOIN recibo_cobro AS rc ON rc.id_recibo = f.id_recibo`;
     mysqlConnection.query(query, (
         err,
         rows
@@ -42,7 +47,7 @@ controller.save = (req, res) => {
     } = req.body;
     const query = `INSERT INTO factura (id_cliente, id_recibo, n_documento, concepto, cantidad, precio, 
         subtotal, total, total_pagar, total_pago, f_documento) 
-        VALUES (?,?,?,?,?,?,?,?,?,?,?)`;
+        VALUES (?,?,?,?,?,?,?,?,?,?,?)`; //total_pago es innecesario
     mysqlConnection.query(
         query,
         [
@@ -79,19 +84,16 @@ controller.update = (req, res) => {
     const {
         id_cliente,
         id_recibo,
-        n_documento,
         concepto,
         cantidad,
         precio,
         subtotal,
         total,
         total_pagar,
-        total_pago,
-        f_documento
     } = req.body;
-    const { id_factura } = req.params;
+    const { n_documento } = req.params;
     const query = `UPDATE factura SET concepto=?, cantidad=?, precio=?, subtotal=?, total=?, total_pagar=?, 
-    total_pago=?, WHERE id_factura=?`;
+    total_pago=?, WHERE n_documento=?`;
     mysqlConnection.query(
         query,
         [
@@ -104,9 +106,6 @@ controller.update = (req, res) => {
             subtotal,
             total,
             total_pagar,
-            total_pago,
-            f_documento,
-            id_factura
         ],
         (err, rows, fields) => {
             if (!err) {
