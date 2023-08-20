@@ -2,6 +2,10 @@
     <!-- Formulario para agregar estudiantes -->
     <div class="left-section">
         <h2>Agregar Nuevo Estudiante</h2>
+        <!-- llamar al template alerta -->
+        <?php 
+            require_once __DIR__.'/../templates/alerta.php';
+        ?>
         <form action="/alumno" method="POST">
             <input type="text" name="nombres" placeholder="Nombres" required>
             <input type="text" name="apellidos" placeholder="Apellidos" required>
@@ -18,8 +22,9 @@
             <input type="date" name="fecha_nacimiento" required>
             <label for="tipo_matriculacion">Tipo de Matriculación:</label>
             <select name="tipo_matriculacion" required>
-                <option value="1">Regular</option>
-                <option value="2">Becado</option>
+                <?php foreach ($descuentos as $descuento) {?>
+                    <option value="<?php echo $descuento->id_descuento ?>"><?php echo $descuento->nombre ?></option>
+                <?php } ?>
             </select>
             <button type="submit">Agregar</button>
         </form>

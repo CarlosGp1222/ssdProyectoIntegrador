@@ -4,7 +4,7 @@
         <?php if (!empty($errores)) : ?>
             <div class="alert alert-danger">
                 <?php foreach ($errores as $error) : ?>
-                    <p><?php echo $error; ?></p>
+                    <p class="mensaje"><?php echo $error; ?></p>
                 <?php endforeach; ?>
             </div>
         <?php endif; ?>

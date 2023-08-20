@@ -143,6 +143,7 @@ class RepresentanteController
         // Ejecutar petición y obtener resultado
         $data = curl_exec($ch);
         
+        debuguear($data);
         // Si hay un error en la petición
         if (curl_errno($ch)) {
             echo 'Error:' . curl_error($ch);
@@ -158,6 +159,10 @@ class RepresentanteController
             header('Location: /login');
             exit;
         }
+
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            
+        }
         
         // Procesar la respuesta
         $resultado = $obj->tipos;
@@ -167,6 +172,8 @@ class RepresentanteController
             'representante' => $reprentante,
         ]);
     }
-    //mostrar vista editar
+    
+    //editar representante
+
     
 }
