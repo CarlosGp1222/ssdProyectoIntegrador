@@ -61,8 +61,7 @@ controller.list_all = (req, res) => {
 
 controller.list_cedula = (req, res) => {
   const { cedula } = req.params;
-  const query = `SELECT d.id_descuento,
-  a.nombres, a.apellidos, a.cedula, a.direccion, a.telefono, a.email, a.genero, a.f_nacimiento,
+  const query = `SELECT a.nombres, a.apellidos, a.cedula, a.direccion, a.telefono, a.email, a.genero, a.f_nacimiento,
   r.cedula AS 'cedula_representante', d.nombre AS 'tipo_matricula'
   FROM alumnos AS a 
   INNER JOIN representantes AS r ON a.id_representante = r.id_representante 
