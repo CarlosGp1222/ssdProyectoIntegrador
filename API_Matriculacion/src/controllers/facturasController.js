@@ -3,7 +3,7 @@ const controller = {};
 
 controller.list_all = (req, res) => {
 
-    const query = `Select r.nombres, r.apellidos, r.cedula, r.direccion, r.telefono, r.email, 
+    const query = `Select r.id_representante, r.nombres, r.apellidos, r.cedula, r.direccion, r.telefono, r.email, 
     rc.n_documento AS 'n_documento_recibo', f.n_documento 'n_documento_factura', f.concepto, 
     f.cantidad, f.precio, f.subtotal, f.total, f.total_pagar, f.f_documento
     FROM factura AS f
