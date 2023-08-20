@@ -20,7 +20,7 @@ class facturaController
         $url2 = "http://localhost:3001/facturas";
         $resultado2 = consultaApi($url2);
         $facturaN = end($resultado2)->n_documento;
-
+        
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             //debuguear($_POST);
             $url3 = "http://localhost:3001/facturas"; // Nota: Se ha cambiado la ruta de la API.
@@ -35,7 +35,7 @@ class facturaController
                 'precio' => $_POST['precio'],
                 'f_documento' => $_POST['fecha'],
             );
-
+            $facturaN = (end($resultado2)->n_documento)+1;
             $datos = EnvioPost($url3, $data);
             //debuguear($resultado2);
             //$resultado2 ->n_documento = $_POST['ndocumentos'] +1;
