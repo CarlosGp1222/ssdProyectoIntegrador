@@ -9,7 +9,7 @@
                 <option value="M" <?php echo $representante->genero == "M" ? "selected" : ""?>>Masculino</option>
                 <option value="F" <?php echo $representante->genero == "F" ? "selected" : ""?>>Femenino</option>
             </select>
-            <input type="text" name="cedula" placeholder="Cédula" value="<?php echo $representante->cedula ?? "" ?>" required>
+            <input type="hidden" name="cedula" placeholder="Cédula" value="<?php echo $representante->cedula ?? "" ?>" required>
             <input type="text" name="direccion" placeholder="Dirección" value="<?php echo $representante->direccion ?? "" ?>" required>
             <input type="text" name="telefono" placeholder="Teléfono" value="<?php echo $representante->telefono ?? "" ?>" required>
             <input type="email" name="email" placeholder="Email" value="<?php echo $representante->email ?? "" ?>" required>

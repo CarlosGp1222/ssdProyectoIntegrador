@@ -1,8 +1,7 @@
 $primary-color: #34495e;
 
 .contenedor-card{
-    min-height: 100vh;
-    max-height: 1000vh;
+    
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     padding: 0 20rem;

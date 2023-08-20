@@ -1,5 +1,10 @@
 <h1 class="titulo_general">Lista representantes</h1>
-<a class="agregar" href="/representante">Agregar Representante</a>
+<div class="container__agregar">
+    <a class="agregar" href="/representante">Agregar Representante</a>
+</div>
+<?php 
+    require_once __DIR__.'/../templates/alerta.php';
+?>
 <div class="contenedor-card">
     
     <?php foreach ($representantes as $representante) { ?>
