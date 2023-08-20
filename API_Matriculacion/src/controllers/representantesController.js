@@ -52,10 +52,10 @@ controller.save = (req, res) => {
 
 //update
 controller.update = (req, res) => {
-    const { nombres, apellidos, direccion, telefono, email, genero, f_nacimiento } = req.body;
+    const { nombres, apellidos, direccion, telefono, email, genero } = req.body;
     const { cedula } = req.params;
     const query = `UPDATE representantes SET nombres = '${nombres}', apellidos = '${apellidos}', cedula = '${cedula}',
-    direccion = '${direccion}', telefono = '${telefono}', email = '${email}', genero = '${genero}', WHERE cedula = '${cedula}'`;
+    direccion = '${direccion}', telefono = '${telefono}', email = '${email}', genero = '${genero}' WHERE cedula = '${cedula}'`;
 
     mysqlConnection.query(query, [apellidos, cedula], (err) => {
         if (!err) {
