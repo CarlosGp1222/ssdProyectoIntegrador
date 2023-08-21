@@ -28,6 +28,7 @@ router.put('/representante/:cedula', verifyToken, representantesController.updat
 router.post('/login', loginController.list);
 //matricula
 router.get('/matricula', verifyToken, matriculaController.list_all); // Protegido
+router.get('/matricula/:id_matricula', verifyToken, matriculaController.list_one); // Protegido
 router.post('/matricula', verifyToken, matriculaController.save); // Protegido
 router.put('/matricula/:id_matricula', verifyToken, matriculaController.update); // Protegido
 //descuento
