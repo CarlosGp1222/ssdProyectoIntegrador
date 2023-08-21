@@ -8,7 +8,7 @@ const matriculaController = require('../controllers/matriculaController');
 const descuentoController = require('../controllers/descuentosController');
 const cursosController = require('../controllers/cursosController');
 const metodosController = require('../controllers/metodosController');
-const facturasController = require('../controllers/facturasController');
+const facturaController = require('../controllers/facturaController');
 
 // Importar el middleware
 const verifyToken = require('../middlewares/authMiddleware');
@@ -38,9 +38,9 @@ router.put('/descuento/:id_descuento', verifyToken, descuentoController.update);
 router.post('/curso', verifyToken, cursosController.save);
 router.get('/cursos', verifyToken, cursosController.list);
 //facturas
-router.get('/facturas', facturasController.list_all);
-router.post('/facturas', facturasController.save);
-router.put('/facturas/:n_documento', facturasController.update);
+router.get('/facturas', facturaController.list_all);
+router.post('/facturas', facturaController.save);
+//router.put('/facturas/:n_documento', facturasController.update);
 //nota
 //recibo
 //descuento

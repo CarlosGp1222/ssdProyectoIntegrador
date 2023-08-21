@@ -3,12 +3,7 @@ const controller = {};
 
 controller.list_all = (req, res) => {
 
-    const query = `Select r.id_representante, r.nombres, r.apellidos, r.cedula, r.direccion, r.telefono, r.email, 
-    rc.n_documento AS 'n_documento_recibo', f.n_documento 'n_documento_factura', f.concepto, 
-    f.cantidad, f.precio, f.subtotal, f.total, f.total_pagar, f.f_documento
-    FROM factura AS f
-    INNER JOIN representantes AS r ON r.id_representante = f.id_cliente
-    INNER JOIN recibo_cobro AS rc ON rc.id_recibo = f.id_recibo`;
+    const query = `Select * from Representante`;
     mysqlConnection.query(query, (
         err,
         rows

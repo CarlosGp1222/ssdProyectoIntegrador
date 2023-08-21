@@ -18,13 +18,14 @@ class RepresentanteController
         $url = "http://localhost:3001/representante";
         $resultado = consultaApi($url);    
 
-        $mensaje = $_GET['mensaje'];
+        $mensaje = $_GET['mensaje'] ?? null;
         
         $router->render('alumno/representante-vista', [
             'representantes' => $resultado,
             'mensaje' => $mensaje
         ]);
     }
+    
     public static function representante(Router $router)
     {
         session_start();
@@ -33,7 +34,7 @@ class RepresentanteController
             header('Location: /login');
             exit;
         }
-
+        $mensaje = null;
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $url = "http://localhost:3001/representante";
             $data = array(
@@ -48,13 +49,17 @@ class RepresentanteController
 
             $datos = EnvioPost($url, $data);
             // debuguear($representante);
-
+            if ($datos['error']) {
+                $mensaje = $datos['message'];
+            }
             if ($datos['message'] === 'Saved') {
                 header('Location: /representantes?mensaje=Representante agregado Correctamente');
             }
         };
 
-        $router->render('alumno/representante', []);
+        $router->render('alumno/representante', [
+            'mensaje'=>$mensaje
+        ]);
     }
 
     public static function editarRepresentante(Router $router)

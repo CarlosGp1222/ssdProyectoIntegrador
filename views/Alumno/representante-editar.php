@@ -2,6 +2,9 @@
     <!-- Formulario para agregar representante -->
     <div class="section">
         <h2>Editar Representante</h2>
+        <?php 
+            require_once __DIR__.'/../templates/alerta.php';
+        ?>
         <form action="/representantes-editar" method="POST">
             <input type="text" name="nombres" placeholder="Nombres" value="<?php echo $representante->nombres ?? "" ?>" required>
             <input type="text" name="apellidos" placeholder="Apellidos" value="<?php echo $representante->apellidos ?? "" ?>" required>

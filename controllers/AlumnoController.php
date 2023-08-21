@@ -83,13 +83,15 @@ class AlumnoController
             exit;
         }
 
-
-        $url = "http://localhost:3001/descuento";
-                
+        $url = "http://localhost:3001/descuento";                
         $descuentos = consultaApi($url);
         
-        //debuguear($descuentos);
-
+        $id = $_GET["id"];
+        
+        $url = "http://localhost:3001/alumno/{$id}";                
+        $alumnos = consultaApi($url);
+        $alumno = array_shift($alumnos);
+        //debuguear($alumno);
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $url = "http://localhost:3001/alumno/{$_POST['cedula']}"; // Nota: Se ha cambiado la ruta de la API.
             $data = array(
@@ -97,7 +99,7 @@ class AlumnoController
                 'apellidos' => $_POST['apellidos'],
                 'genero' => $_POST['genero'],
                 'cedula' => $_POST['cedula'],
-                'cedulaRepre' => $_POST['cedulaRepre'],
+                'cedula_representante' => $_POST['cedulaRepre'],
                 'f_nacimiento' => $_POST['fecha_nacimiento'],
                 'direccion' => $_POST['direccion'],
                 'telefono' => $_POST['telefono'],
@@ -105,20 +107,21 @@ class AlumnoController
                 'tipo_matriculacion' => $_POST['tipo_matriculacion'],
             );
 
-            $datos = EnvioPost($url, $data);
-
+            $datos = EnvioPost($url, $data, "PUT");
+            //debuguear($datos);
             if ($datos['error']) {
                 $mensaje = $datos['message'];
             }
-            if ($datos['message'] === 'Saved') {
-                header('Location: /alumnos?mensaje=Alumno agregado correctamente');
+            if ($datos['message'] === 'Actualizado') {
+                header('Location: /alumnos?mensaje=Alumno Actualizado correctamente');
             }
             //debuguear($mensaje);
         }
 
-        $router->render('Alumno/alumno', [
+        $router->render('Alumno/alumno-editar', [
             'descuentos' => $descuentos,
             'mensaje' => $mensaje,
+            'alumno' => $alumno,
         ]);
     }
 }
