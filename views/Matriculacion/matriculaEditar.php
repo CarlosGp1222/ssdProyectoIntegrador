@@ -20,7 +20,10 @@
                 <?php } ?>
             </select>
             <div class="label">Estado</div>
-            <input name = "estado" type="text" value="Matriculado" readonly>
+                <select name="estado" class="input-box">
+                    <option value="matriculado">Matriculado</option>
+                    <option value="retirado">Retirado</option>
+                </select>
             <button type="submit">Actualizar</button>
         </form>
     </div>
