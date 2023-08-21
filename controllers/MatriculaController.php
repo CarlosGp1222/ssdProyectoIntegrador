@@ -22,20 +22,24 @@ class MatriculaController
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $urlMatricula = "http://localhost:3001/matricula";
-            
+            $i = 0;
+            //debuguear($_POST);
             $data = array(
                 'id_alumno' => $_POST['alumno'],
                 'id_curso' => $_POST['curso'],
-                'estado' => $_POST['estado'],
+                'n_matricula' => $i=$i+1,
+                'estado' => $_POST['estado']
             );
             
 
             $datos = EnvioPost($urlMatricula, $data);
 
+            //debuguear($datos);
+
             if ($datos['error']) {
                 $mensaje = $datos['message'];
             } else if ($datos['message'] === 'Matricula creada') {
-                header('Location: /matricula?mensaje=Matriculado correctamente');
+                header('Location: /matriculaListar?mensaje=Matriculado correctamente');
                 exit();
             }
                 
@@ -71,6 +75,58 @@ class MatriculaController
             'matriculas' => $matriculas,
             'mensaje' => $mensaje,
         ]);
+    }
+
+
+    public static function matriculaEditar(Router $router)
+    {
+
+    
+            $mensaje = null;
+            session_start();
+            if (!isset($_SESSION['token']) || empty($_SESSION['token'])) {
+                header('Location: /login');
+                exit;
+            }
+            $urlAlumnos = "http://localhost:3001/alumnos";
+            $alumnos = consultaApi($urlAlumnos);
+    
+            $urlCursos = "http://localhost:3001/cursos";
+            $cursos = consultaApi($urlCursos);
+    
+            if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+                $urlMatricula = "http://localhost:3001/matricula";
+                $i = 0;
+                //debuguear($_POST);
+                $data = array(
+                    'id_alumno' => $_POST['alumno'],
+                    'id_curso' => $_POST['curso'],
+                    'n_matricula' => $i=$i+1,
+                    'estado' => $_POST['estado']
+                );
+                
+    
+                $datos = EnvioPost($urlMatricula, $dat, "PUT");
+    
+                //debuguear($datos);
+    
+                if ($datos['error']) {
+                    $mensaje = $datos['message'];
+                } else if ($datos['message'] === 'Matricula creada') {
+                    header('Location: /matriculaEditar?mensaje=Matriculado correctamente');
+                    exit();
+                }
+                    
+                
+            }
+    
+            $router->render('Matriculacion/matriculaEditar', [
+                'alumnos' => $alumnos,
+                'cursos' => $cursos,
+                'mensaje' => $mensaje
+    
+            ]);
+      
     }
 
 }
