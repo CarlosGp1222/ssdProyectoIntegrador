@@ -27,8 +27,9 @@ $router->post('/cursos', [CursoController::class, 'formCurso']);
 $router->get('/cursosV', [CursoController::class, 'index']);
 $router->get('/login', [LoginController::class, 'login']);
 $router->post('/login', [LoginController::class, 'login']);
-$router->Get('/matriculaListar', [MatriculaController::class, 'matriculaListar']);
-$router->Post('/matricula', [MatriculaController::class, 'matricula']);
+$router->get('/matriculaListar', [MatriculaController::class, 'matriculaListar']);
+$router->post('/matricula', [MatriculaController::class, 'matricula']);
+$router->get('/matricula', [MatriculaController::class, 'matricula']);
 $router->get('/facturas', [facturaController::class, 'index']);
 $router->post('/facturas', [facturaController::class, 'index']);
 
