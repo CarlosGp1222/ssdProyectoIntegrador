@@ -3,11 +3,11 @@ const controller = {};
 
 controller.list_all = (req, res) => {
 
-  const query = ` SELECT id_matricula, a.id_alumno, a.id_curso, a.nombres AS 'nombres_alumno', 
-  a.apellidos AS 'apellidos_alumno', c.nombre AS 'nombre_curso', n_matricula, estado
+  const query = ` SELECT m.id_matricula, a.id_alumno, c.nombre, a.nombres AS 'nombres_alumno', 
+  a.apellidos AS 'apellidos_alumno', n_matricula, estado
   FROM matricula AS m
   INNER JOIN alumnos AS a ON m.id_alumno = a.id_alumno
-  INNER JOIN cursos AS c ON a.id_curso = a.id_curso`;
+  INNER JOIN cursos AS c ON m.id_curso = c.id_curso`;
   mysqlConnection.query(query, (
     err,
     rows
@@ -57,6 +57,26 @@ controller.list_one = (req, res) => {
 
 controller.save = (req, res) => {
   const {  id_alumno, n_matricula, id_curso, estado } = req.body;
+  const queryAlumnos = "SELECT id_matricula FROM alumnos WHERE id_alumno = ? LIMIT 1";
+  mysqlConnection.query(queryAlumnos, [cedula], (err, results) => {
+    if (err) {
+      return res.json({ error: true, message: err });
+    }
+
+    if (results.length > 0) {
+      return res.json({ error: true, message: "El alumno ya está matriculado" });
+    }
+
+    const queryAlumnos = "SELECT id_alumno FROM alumnos WHERE id_curso = ? LIMIT 1";
+    mysqlConnection.query(queryAlumnos, [cedula], (err, results) => {
+      if (err) {
+        return res.json({ error: true, message: err });
+      }
+  
+      if (results.length > 0) {
+        return res.json({ error: true, message: "El alumno ya está matriculado en este curso" });
+      }
+
   const query = `INSERT INTO matricula( id_alumno ,n_matricula, id_curso, estado) VALUES (?, ?, ?, ?)`;
   mysqlConnection.query(
     query,
@@ -76,7 +96,9 @@ controller.save = (req, res) => {
       }
     }
   );
+});
 }
+  )};
 
 controller.update = (req, res) => {
   const { id_curso, estado } = req.body;
