@@ -71,7 +71,7 @@ class RepresentanteController
             exit;
         }
         
-        $id = $_GET['id'];
+        $id = $_GET['id'] ?? null;
         $url = "http://localhost:3001/representante/{$id}";
         $resultado = consultaApi($url);
         $reprentante = array_shift($resultado);
