@@ -60,15 +60,15 @@ class MatriculaController
         }
         
         $mensaje = $_GET['mensaje'] ?? null;
-        $url = "http://localhost:3001/matriculaListar";
-        $resultado = consultaApi($url);
+        $url = "http://localhost:3001/matricula";
+        $matriculas = consultaApi($url);
         
         // $reprentantes = array_shift($resultado);
-         debuguear($resultado);
+        // debuguear($matriculas);
         // Cerrar cURL
         //curl_close($ch);
-        $router->render('Matriculacion/matricula', [
-            'alumnos' => $resultado,
+        $router->render('Matriculacion/matriculaListar', [
+            'matriculas' => $matriculas,
             'mensaje' => $mensaje,
         ]);
     }
