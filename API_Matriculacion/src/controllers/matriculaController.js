@@ -54,9 +54,9 @@ controller.save = (req, res) => {
 }
 
 controller.update = (req, res) => {
-  const { id_alumno, id_curso } = req.body;
+  const { id_curso, estado } = req.body;
   const { id_matricula } = req.params;
-  const query = `UPDATE cursos SET id_alumno='${id_alumno}' id_curso='${id_curso}', estado='${cedula}' WHERE id_matricula='${id_matricula}'`;
+  const query = `UPDATE cursos SET id_curso='${id_curso}', estado='${estado}' WHERE id_matricula='${id_matricula}'`;
   mysqlConnection.query(
     query,
     [id_curso, nombre],
