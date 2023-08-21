@@ -32,7 +32,7 @@ controller.list_all = (req, res) => {
 
 controller.save = (req, res) => {
   const { id_curso, nombre } = req.body;
-  const query = `INSERT INTO matricula(id_alumno, id_curso, estado) VALUES (?, ?, ?)`;
+  const query = `INSERT INTO matricula(id_alumno, n_matricula,id_curso, estado) VALUES (?, ?, ?, ?)`;
   mysqlConnection.query(
     query,
     [id_curso, nombre],
