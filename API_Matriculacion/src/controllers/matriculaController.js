@@ -31,11 +31,16 @@ controller.list_all = (req, res) => {
 };
 
 controller.save = (req, res) => {
+<<<<<<< HEAD
+  const { id_alumno, id_curso, estado } = req.body;
+  const query = `INSERT INTO matricula(id_alumno, id_curso, estado) VALUES (?, ?, ?)`;
+=======
   const { id_curso, nombre } = req.body;
   const query = `INSERT INTO matricula(id_alumno, n_matricula,id_curso, estado) VALUES (?, ?, ?, ?)`;
+>>>>>>> f2860a62707a5922a66939b946ce6c2b170c8b51
   mysqlConnection.query(
     query,
-    [id_curso, nombre],
+    [id_alumno, id_curso, estado],
     (err, rows, fields) => {
       if (!err) {
         res.json({

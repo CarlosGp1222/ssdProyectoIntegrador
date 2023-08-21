@@ -3,6 +3,7 @@
     <a href="/representantes">Representante</a>
     <a href="/alumnos">Alumno</a>
     <a href="/cursosV">Curso</a>
+    <a href="/matriculaListar">Matriculación</a>
     <a href="#">Cobro</a>
     <a href="/facturas">Factura</a>
 </div>
