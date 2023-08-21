@@ -4,7 +4,7 @@ const controller = {};
 controller.list_all = (req, res) => {
 
   const query = ` SELECT id_matricula, a.id_alumno, c.id_curso, a.nombres AS 'nombres_alumno', 
-  a.apellidos AS 'apellidos_alumno', n_matricula, estado
+  a.apellidos AS 'apellidos_alumno', c.nombre, n_matricula, estado
   FROM matricula AS m
   INNER JOIN alumnos AS a ON m.id_alumno = a.id_alumno
   INNER JOIN cursos AS c ON m.id_curso = m.id_curso`;
