@@ -38,7 +38,7 @@ class facturaController
             );
             $facturaN = (end($resultado2)->n_documento ?? 0)+1;
             $datos = EnvioPost($url3, $data);
-            debuguear($datos);
+            //debuguear($datos);
             //debuguear($resultado2);
             //$resultado2 ->n_documento = $_POST['ndocumentos'] +1;
             
