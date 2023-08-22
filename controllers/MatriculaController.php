@@ -8,8 +8,9 @@ class MatriculaController
 {
     public static function matricula(Router $router)
     {
-        $mensaje = null;
+        
         session_start();
+        $mensaje = null;
         if (!isset($_SESSION['token']) || empty($_SESSION['token'])) {
             header('Location: /login');
             exit;

@@ -24,6 +24,8 @@ $router->get('/representantes-editar', [RepresentanteController::class, 'editarR
 $router->post('/representantes-editar', [RepresentanteController::class, 'editarRepresentante']);
 $router->get('/cursos', [CursoController::class, 'formCurso']);
 $router->post('/cursos', [CursoController::class, 'formCurso']);
+$router->get('/cursos-editar', [CursoController::class, 'editarCurso']);
+$router->post('/cursos-editar', [CursoController::class, 'editarCurso1']);
 $router->get('/cursosV', [CursoController::class, 'index']);
 $router->get('/login', [LoginController::class, 'login']);
 $router->post('/login', [LoginController::class, 'login']);

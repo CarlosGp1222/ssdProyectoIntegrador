@@ -19,7 +19,8 @@ class facturaController
         $resultado = consultaApi($url);
         $url2 = "http://localhost:3001/facturas";
         $resultado2 = consultaApi($url2);
-        $facturaN = end($resultado2)->n_documento;
+        $facturaN = end($resultado2)->n_documento ?? 0;
+        //debuguear($resultado2);
         
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             //debuguear($_POST);
@@ -35,8 +36,9 @@ class facturaController
                 'precio' => $_POST['precio'],
                 'f_documento' => $_POST['fecha'],
             );
-            $facturaN = (end($resultado2)->n_documento)+1;
+            $facturaN = (end($resultado2)->n_documento ?? 0)+1;
             $datos = EnvioPost($url3, $data);
+            debuguear($datos);
             //debuguear($resultado2);
             //$resultado2 ->n_documento = $_POST['ndocumentos'] +1;
             

@@ -17,6 +17,8 @@ class RepresentanteController
         //Consulta representante
         $url = "http://localhost:3001/representante";
         $resultado = consultaApi($url);    
+        
+        //debuguear($resultado);
 
         $mensaje = $_GET['mensaje'] ?? null;
         
@@ -65,7 +67,7 @@ class RepresentanteController
     public static function editarRepresentante(Router $router)
     {
         session_start();
-
+        $mensaje = null;
         if (!isset($_SESSION['token']) || empty($_SESSION['token'])) {
             header('Location: /login');
             exit;
@@ -95,7 +97,9 @@ class RepresentanteController
         }
 
         $router->render('alumno/representante-editar', [
-            'representante' => $reprentante
+            'mensaje' => $mensaje,
+            'representante' => $reprentante,
+            //debuguear($reprentante)
         ]);
     }
 

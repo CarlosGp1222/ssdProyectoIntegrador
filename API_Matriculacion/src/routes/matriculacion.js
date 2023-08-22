@@ -38,6 +38,8 @@ router.put('/descuento/:id_descuento', verifyToken, descuentoController.update);
 //cursos
 router.post('/curso', verifyToken, cursosController.save);
 router.get('/cursos', verifyToken, cursosController.list);
+router.get('/curso/:id_curso', verifyToken, cursosController.list_one);
+router.put('/curso/:id_curso', verifyToken, cursosController.update);
 //facturas
 router.get('/facturas', facturaController.list_all);
 router.post('/facturas', facturaController.save);
