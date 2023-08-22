@@ -58,7 +58,7 @@ controller.list_one = (req, res) => {
 controller.save = (req, res) => {
   const {  id_alumno, n_matricula, id_curso, estado } = req.body;
   const queryAlumnos = "SELECT id_matricula FROM alumnos WHERE id_alumno = ? LIMIT 1";
-  mysqlConnection.query(queryAlumnos, [cedula], (err, results) => {
+  mysqlConnection.query(queryAlumnos, [id_matricula], (err, results) => {
     if (err) {
       return res.json({ error: true, message: err });
     }
@@ -68,7 +68,7 @@ controller.save = (req, res) => {
     }
 
     const queryAlumnos = "SELECT id_alumno FROM alumnos WHERE id_curso = ? LIMIT 1";
-    mysqlConnection.query(queryAlumnos, [cedula], (err, results) => {
+    mysqlConnection.query(queryAlumnos, [id_alumno], (err, results) => {
       if (err) {
         return res.json({ error: true, message: err });
       }
