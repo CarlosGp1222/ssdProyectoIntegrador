@@ -31,9 +31,9 @@ class MatriculaController
                 'estado' => $_POST['estado']
             );
             
-
+            //debuguear($data);
             $datos = EnvioPost($urlMatricula, $data);
-            // debuguear($datos);
+             //debuguear($datos);
             
 
             if ($datos['error']) {
@@ -95,8 +95,10 @@ class MatriculaController
             $urlCursos = "http://localhost:3001/cursos";
             $cursos = consultaApi($urlCursos);
     
-            $id = $_GET['id'];
             
+            $id = $_GET['id'] ?? null;
+            //debuguear($id);
+
             $url = "http://localhost:3001/matricula/{$id}";
             $matriculas =  consultaApi($url);
             $matricula = array_shift($matriculas);
