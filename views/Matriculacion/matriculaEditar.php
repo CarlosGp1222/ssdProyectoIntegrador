@@ -24,8 +24,7 @@
                 <?php } ?>
             </select>
             <div class="label">Estado</div>
-            <input name="estado" type="text" value="Matriculado" readonly>
-            <input type="hidden" name="id_matricula" value="<?php echo $matricula->id_matricula ?>">
+            <input name = "estado" type="text" value="Matriculado" readonly>
             <button type="submit">Actualizar</button>
         </form>
     </div>

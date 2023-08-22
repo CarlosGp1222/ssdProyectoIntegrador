@@ -58,6 +58,26 @@ controller.list_one = (req, res) => {
 
 controller.save = (req, res) => {
   const {  id_alumno, n_matricula, id_curso, estado } = req.body;
+  const queryAlumnos = "SELECT id_matricula FROM alumnos WHERE id_alumno = ? LIMIT 1";
+  mysqlConnection.query(queryAlumnos, [cedula], (err, results) => {
+    if (err) {
+      return res.json({ error: true, message: err });
+    }
+
+    if (results.length > 0) {
+      return res.json({ error: true, message: "El alumno ya está matriculado" });
+    }
+
+    const queryAlumnos = "SELECT id_alumno FROM alumnos WHERE id_curso = ? LIMIT 1";
+    mysqlConnection.query(queryAlumnos, [cedula], (err, results) => {
+      if (err) {
+        return res.json({ error: true, message: err });
+      }
+  
+      if (results.length > 0) {
+        return res.json({ error: true, message: "El alumno ya está matriculado en este curso" });
+      }
+
   const query = `INSERT INTO matricula( id_alumno ,n_matricula, id_curso, estado) VALUES (?, ?, ?, ?)`;
   console.log(query);
   mysqlConnection.query(
@@ -78,7 +98,9 @@ controller.save = (req, res) => {
       }
     }
   );
+});
 }
+  )};
 
 controller.update = (req, res) => {
   const { id_curso, estado } = req.body;
