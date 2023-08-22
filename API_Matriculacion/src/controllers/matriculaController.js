@@ -58,7 +58,7 @@ controller.list_one = (req, res) => {
 
 controller.save = (req, res) => {
   const {  id_alumno, n_matricula, id_curso, estado } = req.body;
-  const queryAlumnos = "SELECT id_matricula FROM matricula WHERE estado = Matriculado AND id_alumno = ? LIMIT 1";
+  const queryAlumnos = "SELECT id_matricula FROM matricula WHERE estado = 'Matriculado' AND id_alumno = ? LIMIT 1";
   mysqlConnection.query(queryAlumnos, [id_alumno], (err, results) => {
     if (err) {
       return res.json({ error: true, message: err });
